@@ -1,0 +1,54 @@
+﻿<Window x:Class="HospitalAppAdmin.BaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalAppAdmin"
+        mc:Ignorable="d"
+        Title="Рабочие дни врачей" MinHeight="450" MinWidth="1000" WindowStartupLocation="CenterScreen" IsVisibleChanged="Window_IsVisibleChanged">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+            <TextBlock Name="txtBlockUser" TextWrapping="Wrap" Style="{StaticResource BlockCommon}" HorizontalAlignment="Left"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Специализация:" Style="{StaticResource BlockCommon}" Width="auto"></TextBlock>
+            <ComboBox Name="ComboSpecialization" SelectionChanged="ComboSpecialization_SelectionChanged" DisplayMemberPath="Name" IsEditable="True" PreviewKeyDown="ComboSpecialization_PreviewKeyDown"></ComboBox>
+            <TextBlock Text="Врач:" Style="{StaticResource BlockCommon}" Width="auto" Margin="40 5 5 5"></TextBlock>
+            <ComboBox DisplayMemberPath="FullName" Name="ComboDoctor" SelectionChanged="ComboDoctor_SelectionChanged" IsEditable="True" PreviewKeyDown="ComboDoctor_PreviewKeyDown"></ComboBox>
+            <Button Content="Выйти" Name="BtnLogout" Click="BtnLogout_Click" Width="80"></Button>
+            <Button Content="Печать" Name="BtnPrint" Click="BtnPrint_Click" Width="80"></Button>
+        </StackPanel>
+        <FlowDocumentScrollViewer Grid.Row="1" Name="scrollAllData" Visibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <FlowDocument Name="flowDocumentAllData" ColumnWidth="700" MinPageHeight="1000">
+                <BlockUIContainer>
+                    <StackPanel Orientation="Vertical" >
+                        <TextBlock x:Name="TxtBlockDoctor" FontSize="20" ></TextBlock>
+                        <DataGrid x:Name="DGridShedule" Grid.Row="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="160"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Начало смены" Binding="{Binding StartTime}" Width="*"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Конец смены" Binding="{Binding EndTime}" Width="*"></DataGridTextColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Редактировать" Name="BtnEdit" Click="BtnEdit_Click"></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </BlockUIContainer>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Content="Добавить" Name="BtnAdd" Click="BtnAdd_Click"></Button>
+            <Button Content="Удалить" Name="BtnDelete" Click="BtnDelete_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
