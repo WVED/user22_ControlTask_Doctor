@@ -74,7 +74,10 @@ namespace HospitalAppAdmin.UI
                 MessageBox.Show(errors.ToString());
                 return;
             }
-
+            if (App.DataBase.DoctorSchedules.ToList().Where(p => selectedDoctor.IsActual == false).ToList().Count != 0)
+            {
+                MessageBox.Show("Ошибка!", "Данный врач находится на больничном!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             else
             {
                 doctorSchedule.StartTime = TimeSpan.Parse(comboBoxFrom.SelectedItem.ToString());
